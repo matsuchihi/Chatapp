@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/result/ajax', 'App\Http\Controllers\HomeController@getData');
 Route::post('/add', [App\Http\Controllers\HomeController::class, 'add'])->name('add');
 Auth::routes();
 
