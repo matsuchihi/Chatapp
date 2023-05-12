@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -26,5 +27,16 @@ class HomeController extends Controller
     {
         $comments = Comment::get();
         return view('home', ['comments' => $comments]);
+    }
+    public function add(Request $request)
+    {
+        $user = Auth::user();
+        $comment = $request->input('comment');
+        Comment::create([
+            'login_id' => $user->id,
+            'name' => $user->name,
+            'comment' => $comment
+        ]);
+        return redirect()->route('home');
     }
 }
